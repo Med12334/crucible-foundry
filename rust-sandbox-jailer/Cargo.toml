@@ -1,0 +1,8 @@
+[package]
+name = "crucible-rust-sandbox-jailer"
+version = "1.0.0"
+edition = "2021"
+authors = ["Med12334 <Mohamedkhelifi41@gmail.com>"]
+description = "Layers 21-26: Memory-Safe Polyglot Execution Jail, Resource Quota Warden & Mutation Testing Scorer"
+
+[dependencies]

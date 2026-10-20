@@ -1,0 +1,84 @@
+name: Crucible-Foundry 36-Layer Frontier AI Code Evaluation CI Matrix
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  layer35-architecture-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run 36-Layer Crucible-Foundry Architecture Verifier
+        run: bash ./scripts/verify-crucible-foundry.sh
+
+  layers1to7-python-ast-and-cfg-inspector:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run Python AST Cyclomatic Complexity, Big-O & Sandbox Safety Suite
+        working-directory: ./py-ast-cfg-analyzer
+        run: |
+          pip install -r requirements.txt
+          PYTHONPATH=. pytest -v
+
+  layers8to14-python-differential-benchmark-fuzzer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run Differential Oracle & Adversarial Edge-Case Fuzzer Suite
+        working-directory: ./py-crucible-benchmark-deck
+        run: |
+          pip install -r requirements.txt
+          PYTHONPATH=. pytest -v
+
+  layers15to20-go-pass-at-k-stream-conduit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Go 1.22
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+      - name: Run Go Unbiased Pass@k Combinatorics & Stream Deduplication Tests
+        working-directory: ./go-eval-stream-conduit
+        run: go test -v ./...
+
+  layers21to26-rust-polyglot-sandbox-jailer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Memory-Safe Rust Execution Quota Warden & Mutation Scorer Tests
+        working-directory: ./rust-sandbox-jailer
+        run: cargo test --verbose
+
+  layers27to31-cpp20-ground-truth-reference-oracle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile & Execute C++20 Kahn DAG & Levenshtein Reference Oracle
+        run: |
+          g++ -std=c++20 -O3 -Wall -Wextra cpp20-reference-oracle/src/reference_oracle.cpp -o cpp_oracle_test
+          ./cpp_oracle_test
+
+  layers32to34-ts-frontier-leaderboard-console:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Run Frontier Model Composite Scoring & Contamination Ranker Tests
+        working-directory: ./ts-leaderboard-console
+        run: npm test

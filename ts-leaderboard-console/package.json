@@ -1,0 +1,13 @@
+{
+  "name": "crucible-ts-leaderboard-console",
+  "version": "1.0.0",
+  "description": "Layers 32-34: Frontier AI Code Synthesis Leaderboard & Contamination Matrix",
+  "type": "module",
+  "scripts": {
+    "test": "node --test src/leaderboard_ranker.test.mjs"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

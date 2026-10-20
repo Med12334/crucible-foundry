@@ -1,0 +1,13 @@
+target/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+node_modules/
+dist/
+*.out
+*.o
+*.exe
+cpp_oracle_test
+.DS_Store
